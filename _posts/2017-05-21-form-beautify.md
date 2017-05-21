@@ -5,11 +5,11 @@ title: 表单美化
 
 由于浏览器自带的表单默认样式有些是无法通过css样式表来修改，而且各个浏览器的默认样式也并不一致，看起来就像这个样子
 
-![](/asset/img/form-beautify/img1.png)
+![]({{site.baseurl}}/asset/img/form-beautify/img1.png)
 
 若要实现自定义表单样式，就要通过css3或图片+js来模拟实现，css3适用于高级浏览器，图片+js模拟兼容性更广，美化后的表单样式就像下面这样
 
-![](/asset/img/form-beautify/img2.png)
+![]({{site.baseurl}}/asset/img/form-beautify/img2.png)
 
 ### 实现原理
 radio,checkbox：通过label标签的for属性指向标签id，label标签可以自定义样式，radio和checkbox可以隐藏起来
@@ -52,5 +52,5 @@ select：通过ul,隐藏input[type='hidden']来模拟
 ```
 
 ### 完整代码
-<a href="/demo/form-beautify/index.html" target="_blank">demo</a>
+<a href="{{site.baseurl}}/demo/form-beautify/index.html" target="_blank">demo</a>
 
