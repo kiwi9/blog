@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝滚动</title>
+	<style>
+		body{margin: 0;}
+		ul{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		a{
+			text-decoration: none;
+		}
+
+
+		.m-roll{
+			background-color: #000;
+		}
+		.m-roll .wrap{
+			position: relative;
+			margin: 0 auto;
+			width: 900px;
+			height: 400px;
+		}
+		.m-roll .inner{
+			width: 900px;
+			height: 400px;
+			overflow: hidden;
+		}
+		.m-roll ul{
+			position: relative;
+			height: 400px;
+		}
+		.m-roll li{
+			float: left;
+			width: 300px;
+			height: 400px;
+		}
+		.m-roll li:nth-child(odd){
+			background-color: gray;
+		}
+		.m-roll li:nth-child(even){
+			background-color: #374140;
+		}
+		.m-roll .prev,
+		.m-roll .next{
+			position: absolute;
+			top: 175px;
+			width: 50px;
+			height: 50px;
+			line-height: 50px;
+			background-color: #fff;
+			text-align: center;
+			font-size: 30px;
+			color: #000;
+		}
+		.m-roll .prev{
+			left: -50px;
+		}
+		.m-roll .next{
+			right: -50px;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+
+			// 工具类
+			var cm = {};
+			cm.tools = {
+				gId: function(sId){
+					return document.getElementById(sId);
+				},
+
+				gClass: function(oParent, sClass){
+					var aEle = [],
+			            aElements = oParent.getElementsByTagName('*');
+
+			        for (var i = aElements.length - 1; i >= 0; i--) {
+			            if (aElements[i].className == sClass) {
+			                aEle.push(aElements[i]);
+			            }
+			        }
+
+			        return aEle;
+				}
+			};
+
+
+			var oRoll = cm.tools.gId('j-roll');
+			var oUl = oRoll.getElementsByTagName('ul')[0];
+			var aLi = oRoll.getElementsByTagName('li');
+			var btnPrev = cm.tools.gClass(oRoll, 'prev')[0];
+			var btnNext = cm.tools.gClass(oRoll, 'next')[0];
+			var w = aLi[0].offsetWidth;
+			var len = 0;
+			var iNow = 0;
+
+			// 初始化,复制ul里面的li，并设置ul的宽度
+			oUl.innerHTML += oUl.innerHTML;
+			len = aLi.length;
+			oUl.style.width = (w * len) + 'px';
+
+			// 绑定事件
+			btnPrev.onclick = function(){
+				// 点击上一张，当索引为0时，拉取ul容器到一半的位置	
+				if(iNow == 0){
+					iNow = len / 2;
+					oUl.style.left = -(w * iNow) + 'px';
+				}
+
+				// 缓冲运动
+				move(oUl, -iNow*w, -(iNow-1)*w);
+				iNow--;
+			};
+
+			btnNext.onclick = function(){		
+				// 点击下一张，当索引为li长度的一半时，把ul容器重置到初始位置0		
+				if(iNow == len/2){
+					iNow = 0;
+					oUl.style.left = 0;
+				}
+
+				move(oUl, -iNow*w, -(iNow+1)*w);
+				iNow++;
+			};
+
+
+			function move(obj, iOld, iNew){
+				clearInterval(obj.timer);
+				obj.timer = setInterval(function(){
+					var speed = (iNew - iOld) / 10;
+					speed = speed > 0 ? Math.ceil(speed) :Math.floor(speed);
+
+					if(iOld == iNew){
+						clearInterval(obj.timer);
+					}else{
+						iOld+=speed;
+						obj.style.left = iOld + 'px';
+					}
+				}, 30);
+			}
+
+		};
+	</script>
+</head>
+<body>
+<div id="j-roll" class="m-roll">
+	<div class="wrap">
+		<div class="inner">
+			<ul>
+				<li><a href="#"><img src="img1.jpg" alt=""></a></li>
+				<li><a href="#"><img src="img2.jpg" alt=""></a></li>
+				<li><a href="#"><img src="img3.jpg" alt=""></a></li>
+				<li><a href="#"><img src="img4.jpg" alt=""></a></li>
+				<li><a href="#"><img src="img5.jpg" alt=""></a></li>
+				<li><a href="#"><img src="img6.jpg" alt=""></a></li>
+			</ul>
+		</div>
+		<a class="prev" href="javascript:;">&lt;</a>
+		<a class="next" href="javascript:;">&gt;</a>
+	</div>
+</div>
+</body>
+</html>

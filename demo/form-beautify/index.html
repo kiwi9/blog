@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>form-beautify</title>
+	<style>
+		.m-form{
+			margin: 0 auto;
+			padding: 20px;
+			width: 500px;
+			border: 1px solid #000;
+		}
+		.m-form .formItem{
+			margin-bottom: 15px;
+			line-height: 30px;
+		}
+		.m-form .formText{
+			float: left;
+			margin-right: -80px;
+			width: 80px;
+			text-align: right;
+		}
+		.m-form .formIpt{
+			margin-left: 90px;
+		}
+		.m-form .ipt{
+			padding: 0 5px;
+			border: 1px solid #333;
+			line-height: 30px;
+			color: #333;
+			outline: none;
+		}
+
+
+		.u-radio,
+		.u-checkbox{
+			_zoom:1;
+			*display:inline;
+			display:inline-block; 
+			margin-right: 5px;
+			font-size: 14px;
+		}
+		.u-radio input,
+		.u-checkbox input{
+			display: none;
+		}
+		.u-radio label,
+		.u-checkbox label{
+			position: relative;
+			padding-left: 20px;
+			padding-bottom: 2px;
+			width: 18px;
+			height: 18px;
+			background: url(form-sprite.png) no-repeat;
+		}
+		.u-radio input:checked + label,
+		.u-radio .z-sel{
+			background-position: 0 -36px;
+		}
+
+
+		.u-checkbox label{
+			background-position: 0 -72px;
+		}
+		.u-checkbox input:checked + label,
+		.u-checkbox .z-sel{
+			background-position: 0 -108px;
+		}
+
+
+		.u-select{
+			display: inline-block;
+			_zoom:1;
+			*display: inline;
+			position: relative;
+			width: 120px;
+			height: 30px;
+			font-size: 14px;
+		}
+		.u-select p{
+			position: relative;
+			margin: 0;
+			padding: 0 5px;
+			width: 108px;
+			height: 28px;
+			border: 1px solid #333;
+			cursor: pointer;
+		}
+		.u-select p:after{
+			content: '';
+			display: block;
+			position: absolute;
+			right: 5px;
+			top: 12px;
+			width: 0;
+			height: 0;
+			border-left: 6px solid transparent;
+			border-right: 6px solid transparent;
+			border-top: 6px solid #333;
+		}
+		.u-select ul{
+			display: none;
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			position: absolute;
+			left: 0;
+			top: 30px;
+			width: 118px;
+			border: 1px solid #333;
+			border-top: none;
+			background: #fff;
+		}
+		.u-select li{
+			padding: 0 5px;
+			line-height: 30px;
+			cursor: pointer;
+		}
+		.u-select li:hover,
+		.u-select .z-sel{
+			background-color: #333;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<form class="m-form" action="">
+		<div class="formItem">
+			<div class="formText">姓名：</div>
+			<div class="formIpt">
+				<input class="ipt" type="text">
+			</div>
+		</div>
+		<div class="formItem">
+			<div class="formText">性别：</div>
+			<div class="formIpt">
+				<div class="u-radio">
+					<input id="r1" type="radio" name="sex" checked>
+					<label for="r1">男</label>
+				</div>
+				<div class="u-radio">
+					<input id="r2" type="radio" name="sex">
+					<label for="r2">女</label>
+				</div>
+			</div>
+		</div>
+		<div class="formItem">
+			<div class="formText">爱好：</div>
+			<div class="formIpt">
+				<div class="u-checkbox">
+					<input id="h1" type="checkbox" name="hobby">
+					<label for="h1">篮球</label>
+				</div>
+				<div class="u-checkbox">
+					<input id="h2" type="checkbox" name="hobby">
+					<label for="h2">足球</label>
+				</div>
+				<div class="u-checkbox">
+					<input id="h3" type="checkbox" name="hobby">
+					<label for="h3">排球</label>
+				</div>
+				<div class="u-checkbox">
+					<input id="h4" type="checkbox" name="hobby">
+					<label for="h4">地球</label>
+				</div>
+			</div>
+		</div>
+		<div class="formItem">
+			<div class="formText">职业：</div>
+			<div class="formIpt">
+				<div class="u-select j-select">
+					<p>设计师</p>
+					<input type="hidden" value="">
+					<ul>
+						<li data-val="0">请选择</li>
+						<li data-val="1">设计师</li>
+						<li class="z-sel" data-val="2">厨师</li>
+						<li data-val="3">理想家</li>
+						<li data-val="4">僧侣</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script>
+	(function($){
+		$.fn.beautifyForm = function(){
+			return $(this).each(function(){
+				if($(this).is('[type=checkbox], [type=radio]')){
+					var $input = $(this);
+					var $label = $('label[for='+ $input.attr("id") +']');
+
+					// 绑定自定义事件
+					// 触发自定义事件
+					// 点击触发某一组相同的自定义事件
+					$input.bind('update', function(){
+						$input.is(':checked') ? $label.addClass('z-sel') : $label.removeClass('z-sel');
+					})
+					.trigger('update')
+					.click(function(){
+						$('input[name='+ $input.attr("name") +']').trigger('update');
+					});
+					
+				}
+				if($(this).is('.j-select')){
+					var $p = $(this).find('p');
+					var $input = $(this).find('input');
+					var $ul = $(this).find('ul');
+					var $li = $(this).find('li');
+
+					$li.each(function(i,elem){
+						if($(elem).hasClass('z-sel')){
+							$p.text($(elem).text());
+							$input.val($(elem).attr('data-val'));
+						}
+					});
+
+					$p.click(function(ev){
+						$ul.toggle();
+						ev.stopPropagation();
+					});
+
+					$li.click(function(){
+						$li.removeClass('z-sel');
+						$(this).addClass('z-sel');
+						$p.text($(this).text());
+						$input.val($(this).attr('data-val'));
+					});
+
+					$(document).click(function(){
+						$ul.hide();
+					});
+				}
+			});
+		};
+	})(jQuery);
+	
+
+	$(function(){
+		$('input, .j-select').beautifyForm();
+	})
+</script>	
+</body>
+</html>

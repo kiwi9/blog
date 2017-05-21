@@ -1,0 +1,77 @@
+// color
+@primary: #dc3522;
+@primary2: #d9cb9e;
+@black-blue: #374140;
+@black-light: #2a2c2b;
+@black-dark: #1e1e20;
+// end color
+
+
+body,p,h1,h2,h3{
+	margin: 0;
+}
+ul,ol{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+body{
+	line-height: 1.5;
+	font-size: 16px;
+    font-family: "Microsoft YaHei","\5fae\8f6f\96c5\9ed1";
+}
+h2{
+	font-size: 24px;
+}
+h3{
+	font-size: 20px;
+}
+h4{
+	font-size: 16px;
+}
+
+
+.g-warp{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+
+.m-header{
+	height: 100px;
+	background-color: @black-dark;
+}
+
+
+.m-footer{
+	height: 500px;
+	background-color: @black-dark;
+}
+
+
+.m-article{
+	padding: 50px 0;
+	.title{
+		padding-bottom: 10px;
+		height: 40px;
+		line-height: 40px;
+		border-bottom: 1px solid @black-light;
+		h2{
+			float: left;
+		}
+		span{
+			float: right;
+			font-size: 14px;
+			color: @black-light;
+		}
+	}
+	.bd{
+		padding-top: 20px;
+	}
+	p{
+		margin-top: 20px;
+	}
+	h3,h4,h5{
+		margin-top: 20px;
+	}
+}
