@@ -5,7 +5,9 @@ title: 无缝滚动
 ### 原理
 
 这是无缝滚动的基本结构
+
 ![]({{site.baseurl}}/asset/img/seamless-roll/1.png)
+
 ```
 <div id="j-roll" class="m-roll">
 	<div class="wrap">
@@ -20,6 +22,7 @@ title: 无缝滚动
 	</div>
 </div>
 ```
+
 默认只有2个li，通过js复制一组在后面，也就是4个li，通过样式overflow隐藏掉
 ![]({{site.baseurl}}/asset/img/seamless-roll/2.png)
 

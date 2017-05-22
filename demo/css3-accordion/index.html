@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css3手风琴</title>
+	<style>
+		body{
+			margin: 0;
+		}
+
+
+		.m-accordion{
+			overflow: hidden;
+			position: relative;
+			width: 900px;
+			height: 400px;
+			margin: 50px auto;
+			border: 1px solid #000;
+		}
+		.m-accordion label{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 439px;
+			height: 400px;
+			border-left: 1px solid #000;
+			transition: .5s;
+		}
+		.m-accordion input{
+			display: none;
+		}
+		.m-accordion label:nth-of-type(1){
+			left: 0;
+			border: none;
+		}
+		.m-accordion label:nth-of-type(2){
+			left: 115px;
+		}
+		.m-accordion label:nth-of-type(3){
+			left: 230px;
+		}
+		.m-accordion label:nth-of-type(4){
+			left: 345px;
+		}
+		.m-accordion label:nth-of-type(5){
+			left: 460px;
+		}
+
+
+		.m-accordion input:checked ~ label{
+			transform: translateX(325px);
+		}
+
+
+		.m-accordion-1{
+			list-style: none;
+			margin: 0 auto;
+			padding: 0;
+		}
+		.m-accordion-1 li{
+			float: left;
+			width: 115px;
+			height: 100%;
+			transition: width .5s ease-out;
+		}
+		.m-accordion-1:hover li:not(:hover){
+			width: 115px;
+		}
+		.m-accordion-1 li:hover{
+			width: 439px;
+		}
+		.m-accordion-1 li:first-child{
+			width: 439px;
+		}
+	</style>
+</head>
+<body>
+	<div class="m-accordion">
+		<label for="r1"><img src="img1.jpg" alt=""></label>
+		<input id="r1" type="radio" name="accordion">
+		<label for="r2"><img src="img2.jpg" alt=""></label>
+		<input id="r2" type="radio" name="accordion">
+		<label for="r3"><img src="img3.jpg" alt=""></label>
+		<input id="r3" type="radio" name="accordion">
+		<label for="r4"><img src="img4.jpg" alt=""></label>
+		<input id="r4" type="radio" name="accordion">
+		<label for="r5"><img src="img5.jpg" alt=""></label>
+		<input id="r5" type="radio" name="accordion">
+	</div>
+
+	<ul class="m-accordion m-accordion-1">
+		<li><img src="img5.jpg" alt=""></li>
+		<li><img src="img4.jpg" alt=""></li>
+		<li><img src="img3.jpg" alt=""></li>
+		<li><img src="img2.jpg" alt=""></li>
+		<li><img src="img1.jpg" alt=""></li>
+	</ul>
+</body>
+</html>

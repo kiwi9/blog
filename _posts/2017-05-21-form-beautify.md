@@ -14,6 +14,7 @@ title: 表单美化
 ### 实现原理
 radio,checkbox：通过label标签的for属性指向标签id，label标签可以自定义样式，radio和checkbox可以隐藏起来
 
+
 ```
 <div class="u-radio">
   <input id="r1" type="radio" name="sex" checked>
